@@ -14,9 +14,16 @@
 </head>
 <body style="background-color: #ccc;">
   <form class="pure-form" onsubmit="createImage(); return false">
-    <div>
-      <p>テキスト(目安: 10文字程度)</p>
-      <input type="text" id="image_text" value="Hello World">
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-5">
+        <p>テキスト(目安: 10文字程度)</p>
+        <input type="text" id="image_text" value="Hello World">
+      </div>
+      <div class="pure-u-1 pure-u-md-1-5">
+        <p>プリセット</p>
+        <select id="preset" onchange="changePreset()">
+        </select>
+      </div>
     </div>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-5">
@@ -60,6 +67,34 @@
   </div>
 
   <script>
+    var presets = [
+      { label: 'YouTube (1280x720)', value: {image_width: 1280, image_height: 720} },
+      { label: '16:9 (1920x1080)', value: {image_width: 1920, image_height: 1080} },
+      { label: '4:3 (800x600)', value: {image_width: 800, image_height: 600} },
+    ];
+    var preset = document.getElementById('preset');
+    for (var i=0; i<presets.length; i++) {
+      var r = presets[i];
+      var option = document.createElement('option');
+      option.innerText = r.label;
+      option.value = JSON.stringify(r.value);
+      preset.append(option);
+    }
+
+    function changePreset() {
+      console.log(event);
+      var option = event.target.selectedOptions[0];
+      var params = JSON.parse(option.value);
+      if (params.image_width) {
+        document.getElementById('image_width').value = params.image_width;
+      }
+      if (params.image_height) {
+        document.getElementById('image_height').value = params.image_height;
+      }
+
+      createImage();
+    }
+
     function createImage() {
       var text = document.getElementById('image_text').value;
 
