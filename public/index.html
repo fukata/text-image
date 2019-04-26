@@ -168,7 +168,7 @@
 
     function restoreState() {
       var ids = fieldIds();
-      var params = new URLSearchParams(window.location.search);
+      var params = new URLSearchParams(window.location.hash.slice(2));
       for (var i=0; i<ids.length; i++) {
         var id = ids[i];
         var f = document.getElementById(id);
@@ -201,7 +201,7 @@
           state[id] = f.value;
         }
       }
-      window.history.replaceState('', '', '?' + serialize(state));
+      window.history.replaceState('', '', '#!' + serialize(state));
     };
 
     function createImage() {
