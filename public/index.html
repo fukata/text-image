@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Text Image</title>
 
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
   <!--[if lte IE 8]>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
@@ -19,6 +20,13 @@
         <p>テキスト(目安: 10文字程度)</p>
         <input type="text" id="image_text" value="Hello World">
       </div>
+
+      <div class="pure-u-1 pure-u-md-1-5">
+        <p>フォント</p>
+        <select id="font" onchange="changeFont()">
+        </select>
+      </div>
+
       <div class="pure-u-1 pure-u-md-1-5">
         <p>プリセット</p>
         <select id="preset" onchange="changePreset()">
@@ -67,6 +75,19 @@
   </div>
 
   <script>
+    var fonts = [
+      { label: 'Noto Sans JP, sans-serif', value: "'Noto Sans JP', sans-serif" },
+      { label: 'Verdana', value: "Verdana" },
+    ];
+    var font = document.getElementById('font');
+    for (var i=0; i<fonts.length; i++) {
+      var r = fonts[i];
+      var option = document.createElement('option');
+      option.innerText = r.label;
+      option.value = r.value;
+      font.append(option);
+    }
+
     var presets = [
       { label: 'YouTube (1280x720)', value: {image_width: 1280, image_height: 720} },
       { label: '16:9 (1920x1080)', value: {image_width: 1920, image_height: 1080} },
@@ -79,6 +100,11 @@
       option.innerText = r.label;
       option.value = JSON.stringify(r.value);
       preset.append(option);
+    }
+
+    function changeFont() {
+      console.log(event);
+      createImage();
     }
 
     function changePreset() {
@@ -98,10 +124,6 @@
     function createImage() {
       var text = document.getElementById('image_text').value;
 
-      // 適切な文字サイズを計算
-      var fontSize = document.getElementById('image_text_size').value; // 最大
-      var fontFamily = 'Verdana';
-
       // フォントを中心に配置する座標
       var imageWidth = document.getElementById('image_width').value;
       var imageHeight = document.getElementById('image_height').value;
@@ -115,8 +137,10 @@
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // canvasにテキストを書き込み
-      ctx.fillStyle = document.getElementById('image_text_color').value;
+      var fontSize = document.getElementById('image_text_size').value; // 最大
+      var fontFamily = document.getElementById('font').selectedOptions[0].value;
       ctx.font = fontSize + 'px ' + fontFamily;
+      ctx.fillStyle = document.getElementById('image_text_color').value;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(text, imageWidth / 2, imageHeight / 2);
@@ -130,7 +154,11 @@
       download_link.download = text + ".png";
     }
 
+    //TODO 指定のフォントがロードされたのを確認してから描画する
     createImage();
+    setTimeout(function() {
+      createImage();
+    }, 1000);
   </script>
 </body>
 </html>
