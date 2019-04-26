@@ -61,6 +61,7 @@
     <div>
       <button type="submit" id="submit_button" class="pure-button pure-button-primary" onclick="createImage()">画像を作成</button>
       <a href="#" download="" id="download_link" class="pure-button pure-button-primary">ダウンロード</a>
+      <button class="pure-button pure-button-primary" onclick="copyUrl(); return false">URLをコピー</button>
     </div>
   </form>
 
@@ -143,6 +144,28 @@
       return str.join("&");
     };
 
+    function copyStringToClipboard(str) {
+      // Create new element
+      var el = document.createElement('textarea');
+      // Set value (string to be copied)
+      el.value = str;
+      // Set non-editable to avoid focus and move outside of view
+      el.setAttribute('readonly', '');
+      el.style = {position: 'absolute', left: '-9999px'};
+      document.body.appendChild(el);
+      // Select text inside element
+      el.select();
+      // Copy text to clipboard
+      document.execCommand('copy');
+      // Remove temporary element
+      document.body.removeChild(el);
+    };
+
+    function copyUrl() {
+      copyStringToClipboard(window.location.href);
+      alert('URLをコピーしました');
+    }
+
     function restoreState() {
       var ids = fieldIds();
       var params = new URLSearchParams(window.location.search);
@@ -173,14 +196,11 @@
         var id = ids[i];
         var f = document.getElementById(id);
         if (id === 'font' || id === 'preset') {
-          console.log(f);
           state[id] = f.selectedOptions[0].innerText;
         } else {
           state[id] = f.value;
         }
       }
-      console.log(state);
-      console.log(serialize(state));
       window.history.replaceState('', '', '?' + serialize(state));
     };
 
