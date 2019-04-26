@@ -7,27 +7,29 @@
 <body style="background-color: #ccc;">
   <h1>Text Image</h1>
 
-  <div>
-    <p>画像化するテキスト(目安: 10文字程度)</p>
-    <input type="text" id="image_text" value="Hello World">
-    <p>背景色</p>
-    <input type="text" id="image_bgcolor" value="#ffffff">
-    <p>文字色</p>
-    <input type="text" id="image_text_color" value="#333333">
-    <p>文字サイズ</p>
-    <input type="number" id="image_text_size" value="128"> px
-    <p>画像サイズ(width)</p>
-    <input type="number" id="image_width" value="1280"> px
-    <p>画像サイズ(height)</p>
-    <input type="number" id="image_height" value="720"> px
-  </div>
+  <form onsubmit="createImage(); return false">
+    <div>
+      <p>画像化するテキスト(目安: 10文字程度)</p>
+      <input type="text" id="image_text" value="Hello World">
+      <p>背景色</p>
+      <input type="text" id="image_bgcolor" value="#ffffff">
+      <p>文字色</p>
+      <input type="text" id="image_text_color" value="#333333">
+      <p>文字サイズ</p>
+      <input type="number" id="image_text_size" value="128"> px
+      <p>画像サイズ(width)</p>
+      <input type="number" id="image_width" value="1280"> px
+      <p>画像サイズ(height)</p>
+      <input type="number" id="image_height" value="720"> px
+    </div>
 
-  <hr>
+    <hr>
 
-  <div>
-    <button id="submit_button" onclick="createImage()">画像を作成</button>
-    <a href="#" download="" id="download_link">ダウンロード</a>
-  </div>
+    <div>
+      <button type="submit" id="submit_button" onclick="createImage()">画像を作成</button>
+      <a href="#" download="" id="download_link">ダウンロード</a>
+    </div>
+  </form>
 
   <div>
     <p>結果</p>
