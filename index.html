@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Image</title>
+</head>
+<body style="background-color: #ccc;">
+  <h1>Text Image</h1>
+
+  <div>
+    <p>画像化するテキスト(目安: 10文字程度)</p>
+    <input type="text" id="image_text" value="Hello World">
+    <p>背景色</p>
+    <input type="text" id="image_bgcolor" value="#ffffff">
+    <p>文字色</p>
+    <input type="text" id="image_text_color" value="#333333">
+    <p>文字サイズ</p>
+    <input type="number" id="image_text_size" value="128"> px
+    <p>画像サイズ(width)</p>
+    <input type="number" id="image_width" value="1280"> px
+    <p>画像サイズ(height)</p>
+    <input type="number" id="image_height" value="720"> px
+  </div>
+
+  <div>
+    <button id="submit_button" onclick="createImage()">画像を作成</button>
+    <a href="#" download="" id="download_link">ダウンロード</a>
+  </div>
+
+  <div>
+    <p>結果</p>
+    <img src="" id="result_image">
+  </div>
+
+  <div>
+    <p>ダミー</p>
+    <canvas id="dummy_canvas" width="1280" height="720"></canvas>
+  </div>
+
+  <script>
+    function createImage() {
+      var text = document.getElementById('image_text').value;
+      var bgcolor = document.getElementById('image_bgcolor').value;
+      var textColor = document.getElementById('image_text_color').value;
+
+      // 適切な文字サイズを計算
+      var fontSize = document.getElementById('image_text_size').value; // 最大
+      var fontFamily = 'Verdana';
+
+      // フォントを中心に配置する座標
+      var imageWidth = document.getElementById('image_width').value;
+      var imageHeight = document.getElementById('image_height').value;
+
+      // canvasを白色で初期化
+      var canvas = document.getElementById('dummy_canvas');
+      canvas.width = imageWidth;
+      canvas.height = imageHeight;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = bgcolor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // canvasにテキストを書き込み
+      ctx.fillStyle = textColor;
+      ctx.font = fontSize + 'px ' + fontFamily;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, imageWidth / 2, imageHeight / 2);
+
+      // canvasからdataURLをimgにコピー
+      var dataURL = canvas.toDataURL();
+      document.getElementById('result_image').src = dataURL;
+
+      var downloadLink = document.getElementById('download_link');
+      download_link.href = dataURL;
+      download_link.download = text + ".png";
+    }
+  </script>
+</body>
+</html>
