@@ -124,11 +124,9 @@
     function createImage() {
       var text = document.getElementById('image_text').value;
 
-      // フォントを中心に配置する座標
+      // canvasを白色で初期化
       var imageWidth = document.getElementById('image_width').value;
       var imageHeight = document.getElementById('image_height').value;
-
-      // canvasを白色で初期化
       var canvas = document.getElementById('dummy_canvas');
       canvas.width = imageWidth;
       canvas.height = imageHeight;
@@ -137,7 +135,7 @@
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // canvasにテキストを書き込み
-      var fontSize = document.getElementById('image_text_size').value; // 最大
+      var fontSize = document.getElementById('image_text_size').value;
       var fontFamily = document.getElementById('font').selectedOptions[0].value;
       ctx.font = fontSize + 'px ' + fontFamily;
       ctx.fillStyle = document.getElementById('image_text_color').value;
@@ -149,6 +147,7 @@
       var dataURL = canvas.toDataURL();
       document.getElementById('result_image').src = dataURL;
 
+      // ダウンロードリンク更新
       var downloadLink = document.getElementById('download_link');
       download_link.href = dataURL;
       download_link.download = text + ".png";
