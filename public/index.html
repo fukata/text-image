@@ -40,8 +40,6 @@
   <script>
     function createImage() {
       var text = document.getElementById('image_text').value;
-      var bgcolor = document.getElementById('image_bgcolor').value;
-      var textColor = document.getElementById('image_text_color').value;
 
       // 適切な文字サイズを計算
       var fontSize = document.getElementById('image_text_size').value; // 最大
@@ -56,11 +54,11 @@
       canvas.width = imageWidth;
       canvas.height = imageHeight;
       var ctx = canvas.getContext('2d');
-      ctx.fillStyle = bgcolor;
+      ctx.fillStyle = document.getElementById('image_bgcolor').value;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // canvasにテキストを書き込み
-      ctx.fillStyle = textColor;
+      ctx.fillStyle = document.getElementById('image_text_color').value;
       ctx.font = fontSize + 'px ' + fontFamily;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -74,6 +72,8 @@
       download_link.href = dataURL;
       download_link.download = text + ".png";
     }
+
+    createImage();
   </script>
 </body>
 </html>
