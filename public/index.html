@@ -105,7 +105,7 @@
     function changeFont() {
       console.log(event);
       createImage();
-    }
+    };
 
     function changePreset() {
       console.log(event);
@@ -119,9 +119,73 @@
       }
 
       createImage();
-    }
+    };
+
+    function fieldIds() {
+       return [
+        'image_text',
+        'font',
+        'preset',
+        'image_bgcolor',
+        'image_text_color',
+        'image_text_size',
+        'image_width',
+        'image_height',
+      ];
+    };
+
+    function serialize(obj) {
+      var str = [];
+      for (var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      return str.join("&");
+    };
+
+    function restoreState() {
+      var ids = fieldIds();
+      var params = new URLSearchParams(window.location.search);
+      for (var i=0; i<ids.length; i++) {
+        var id = ids[i];
+        var f = document.getElementById(id);
+        var value = params.get(id);
+        if (value) {
+          if (id === 'font' || id === 'preset') {
+            for (var j=0; f.options.length; j++) {
+              var option = f.options[j];
+              if (option.innerText === value) {
+                option.selected = true;
+                break;
+              }
+            }
+          } else {
+            f.value = value;
+          }
+        }
+      }
+    };
+
+    function saveState() {
+      var state = {};
+      var ids = fieldIds();
+      for (var i=0; i<ids.length; i++) {
+        var id = ids[i];
+        var f = document.getElementById(id);
+        if (id === 'font' || id === 'preset') {
+          console.log(f);
+          state[id] = f.selectedOptions[0].innerText;
+        } else {
+          state[id] = f.value;
+        }
+      }
+      console.log(state);
+      console.log(serialize(state));
+      window.history.replaceState('', '', '?' + serialize(state));
+    };
 
     function createImage() {
+      saveState();
       var text = document.getElementById('image_text').value;
 
       // canvasを白色で初期化
@@ -151,7 +215,9 @@
       var downloadLink = document.getElementById('download_link');
       download_link.href = dataURL;
       download_link.download = text + ".png";
-    }
+    };
+
+    restoreState();
 
     //TODO 指定のフォントがロードされたのを確認してから描画する
     createImage();
