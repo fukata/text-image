@@ -164,6 +164,8 @@ function createImage() {
     { label: 'YouTube (1280x720)', value: {image_width: 1280, image_height: 720} },
     { label: '16:9 (1920x1080)', value: {image_width: 1920, image_height: 1080} },
     { label: '4:3 (800x600)', value: {image_width: 800, image_height: 600} },
+    { label: '1:1 (1024x1024)', value: {image_width: 1024, image_height: 1024} },
+    { label: '1:1 (512x512)', value: {image_width: 512, image_height: 512} },
   ];
   var preset = document.getElementById('preset');
   for (var i=0; i<presets.length; i++) {
