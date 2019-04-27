@@ -167,8 +167,8 @@ function createImage() {
 (function() {
   // fonts
   var fonts = [
-    { label: 'M PLUS Rounded 1c', value: "'M PLUS Rounded 1c', sans-serif" },
     { label: 'M PLUS 1p', value: "'M PLUS 1p', sans-serif" },
+    { label: 'M PLUS Rounded 1c', value: "'M PLUS Rounded 1c', sans-serif" },
     { label: 'Noto Sans JP', value: "'Noto Sans JP', sans-serif" },
     { label: 'Verdana', value: "Verdana" },
   ];
