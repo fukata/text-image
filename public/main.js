@@ -12,6 +12,8 @@ function fieldIds() {
     'image_text_size',
     'image_width',
     'image_height',
+    'stroke_color',
+    'stroke_size',
   ];
 }
 
@@ -52,7 +54,7 @@ function restoreState() {
       if (id === 'font' || id === 'preset') {
         for (var j=0; f.options.length; j++) {
           var option = f.options[j];
-          if (option.innerText === value) {
+          if (option && option.innerText === value) {
             option.selected = true;
             break;
           }
@@ -132,11 +134,21 @@ function createImage() {
   // canvasにテキストを書き込み
   var fontSize = document.getElementById('image_text_size').value;
   var fontFamily = document.getElementById('font').selectedOptions[0].value;
-  ctx.font = fontSize + 'px ' + fontFamily;
+  ctx.font = '900 ' + fontSize + 'px ' + fontFamily;
   ctx.fillStyle = document.getElementById('image_text_color').value;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(text, imageWidth / 2, imageHeight / 2);
+  var strokeColor = document.getElementById('stroke_color').value;
+  var strokeSize = parseInt(document.getElementById('stroke_size').value);
+  if (strokeColor && strokeSize > 0) {
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = strokeSize;
+    ctx.fillText(text, imageWidth / 2, imageHeight / 2);
+    ctx.strokeText(text, imageWidth / 2, imageHeight / 2);
+  } else {
+    ctx.fillText(text, imageWidth / 2, imageHeight / 2);
+  }
+
 
   // canvasからdataURLをimgにコピー
   var dataURL = canvas.toDataURL();
@@ -155,7 +167,8 @@ function createImage() {
 (function() {
   // fonts
   var fonts = [
-    { label: 'Noto Sans JP, sans-serif', value: "'Noto Sans JP', sans-serif" },
+    { label: 'M PLUS 1p', value: "'M PLUS 1p', sans-serif" },
+    { label: 'Noto Sans JP', value: "'Noto Sans JP', sans-serif" },
     { label: 'Verdana', value: "Verdana" },
   ];
   var font = document.getElementById('font');

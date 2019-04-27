@@ -5,7 +5,7 @@
   <title>Text Image</title>
   <link rel="icon" href="favicon.png" type="image/png" />
 
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p|Noto+Sans+JP" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
   <!--[if lte IE 8]>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
@@ -34,43 +34,53 @@
 <body>
   <form class="pure-form" onsubmit="createImage(); return false">
     <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-5">
+      <div class="pure-u-1 pure-u-md-1-6">
+        <p>プリセット</p>
+        <select id="preset" onchange="changePreset()">
+        </select>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-6">
+        <p>背景色</p>
+        <input type="text" id="image_bgcolor" value="#ffffff">
+      </div>
+      <div class="pure-u-1 pure-u-md-1-6">
+        <p>画像サイズ(width)</p>
+        <input type="number" id="image_width" value="1280"> px
+      </div>
+      <div class="pure-u-1 pure-u-md-1-6">
+        <p>画像サイズ(height)</p>
+        <input type="number" id="image_height" value="720"> px
+      </div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-6">
         <p>テキスト(目安: 10文字程度)</p>
         <input type="text" id="image_text" value="Hello World">
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-5">
+      <div class="pure-u-1 pure-u-md-1-6">
         <p>フォント</p>
         <select id="font" onchange="changeFont()">
         </select>
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-5">
-        <p>プリセット</p>
-        <select id="preset" onchange="changePreset()">
-        </select>
-      </div>
-    </div>
-    <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-5">
-        <p>背景色</p>
-        <input type="text" id="image_bgcolor" value="#ffffff">
-      </div>
-      <div class="pure-u-1 pure-u-md-1-5">
+      <div class="pure-u-1 pure-u-md-1-6">
         <p>文字色</p>
         <input type="text" id="image_text_color" value="#333333">
       </div>
-      <div class="pure-u-1 pure-u-md-1-5">
+      <div class="pure-u-1 pure-u-md-1-6">
         <p>文字サイズ</p>
         <input type="number" id="image_text_size" value="180"> px
       </div>
-      <div class="pure-u-1 pure-u-md-1-5">
-        <p>画像サイズ(width)</p>
-        <input type="number" id="image_width" value="1280"> px
+      <div class="pure-u-1 pure-u-md-1-6">
+        <p>文字枠(色)</p>
+        <input type="text" id="stroke_color" value="" placeholder="#ff0000">
       </div>
-      <div class="pure-u-1 pure-u-md-1-5">
-        <p>画像サイズ(height)</p>
-        <input type="number" id="image_height" value="720"> px
+      <div class="pure-u-1 pure-u-md-1-6">
+        <p>文字枠(太さ)</p>
+        <input type="number" id="stroke_size" value="0"> px
       </div>
     </div>
 
