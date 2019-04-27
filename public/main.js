@@ -49,6 +49,10 @@ function restoreState() {
   for (var i=0; i<ids.length; i++) {
     var id = ids[i];
     var f = document.getElementById(id);
+    if (!f) {
+      continue;
+    }
+
     var value = params.get(id);
     if (value) {
       if (id === 'font' || id === 'preset') {
@@ -132,7 +136,7 @@ function createImage() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // canvasにテキストを書き込み
-  var fontSize = document.getElementById('image_text_size').value;
+  var fontSize = parseInt(document.getElementById('image_text_size').value);
   var fontFamily = document.getElementById('font').selectedOptions[0].value;
   ctx.font = '900 ' + fontSize + 'px ' + fontFamily;
   ctx.fillStyle = document.getElementById('image_text_color').value;
@@ -144,6 +148,7 @@ function createImage() {
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = strokeSize;
     ctx.fillText(text, imageWidth / 2, imageHeight / 2);
+    ctx.font = '900 ' + (fontSize + 5) + 'px ' + fontFamily;
     ctx.strokeText(text, imageWidth / 2, imageHeight / 2);
   } else {
     ctx.fillText(text, imageWidth / 2, imageHeight / 2);
@@ -167,6 +172,7 @@ function createImage() {
 (function() {
   // fonts
   var fonts = [
+    { label: 'M PLUS Rounded 1c', value: "'M PLUS Rounded 1c', sans-serif" },
     { label: 'M PLUS 1p', value: "'M PLUS 1p', sans-serif" },
     { label: 'Noto Sans JP', value: "'Noto Sans JP', sans-serif" },
     { label: 'Verdana', value: "Verdana" },
