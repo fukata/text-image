@@ -49,14 +49,10 @@ function restoreState() {
   for (var i=0; i<ids.length; i++) {
     var id = ids[i];
     var f = document.getElementById(id);
-    if (!f) {
-      continue;
-    }
-
     var value = params.get(id);
     if (value) {
       if (id === 'font' || id === 'preset') {
-        for (var j=0; f.options.length; j++) {
+        for (var j=0; j<f.options.length; j++) {
           var option = f.options[j];
           if (option && option.innerText === value) {
             option.selected = true;
