@@ -107,6 +107,14 @@ function copyUrl() {
   alert('URLをコピーしました');
 }
 
+function resetSettings() {
+  if (window.confirm("リセットして大丈夫ですか？\nテキストのみ保持されます。")) {
+    var text = document.getElementById('image_text').value;
+    window.history.replaceState('', '', '#!' + serialize({'image_text': text}));
+    window.location.reload();
+  }
+}
+
 function createImage() {
   saveState();
   var text = document.getElementById('image_text').value;
