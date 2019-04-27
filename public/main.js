@@ -144,7 +144,6 @@ function createImage() {
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = strokeSize;
     ctx.fillText(text, imageWidth / 2, imageHeight / 2);
-    ctx.font = '900 ' + (fontSize + 5) + 'px ' + fontFamily;
     ctx.strokeText(text, imageWidth / 2, imageHeight / 2);
   } else {
     ctx.fillText(text, imageWidth / 2, imageHeight / 2);
